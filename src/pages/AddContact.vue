@@ -1,11 +1,23 @@
 <template>
   <div class="container mt-4">
+    <my-button
+      @click="$log('Kliknuo si!')"
+      title="Klik"
+      class="btn btn-primary"
+    />
     <form @submit.prevent="onSubmit">
       <div class="form-group row">
         <label for="first_name" class="col-4 col-form-label">First Name</label>
         <div class="col-8">
           <div class="input-group">
-            <input id="first_name" name="first_name" type="text" required="required" class="form-control here" v-model="contact.first_name">
+            <input
+              id="first_name"
+              name="first_name"
+              type="text"
+              required="required"
+              class="form-control here"
+              v-model="contact.first_name"
+            >
           </div>
         </div>
       </div>
@@ -20,7 +32,16 @@
       <div class="form-group row">
         <label for="email" class="col-4 col-form-label">Email</label>
         <div class="col-8">
-          <input id="email" name="email" type="email" required="required" class="form-control here" v-model="contact.email">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required="required"
+            class="form-control here"
+            v-model="contact.email"
+            v-focus:always="focused"
+            v-alert="'#cdcdcd'"
+          >
         </div>
       </div>
       <div class="form-group row">
@@ -51,7 +72,8 @@ export default {
         last_name: '',
         email: '',
         number: ''
-      }
+      },
+      focused: 'first_name'
     }
   },
 
@@ -71,14 +93,14 @@ export default {
 
     editContact () {
       contacts.edit(this.contact)
-        .then((response) => {
+        .then(() => {
           this.$router.push('/contacts')
         })
     },
 
     addContact () {
       contacts.add(this.contact)
-        .then((response) => {
+        .then(() => {
           this.$router.push('/contacts')
         })
     }
